@@ -1,10 +1,11 @@
-import { Student } from './../../models/students';
+import { Student } from 'src/app/models/students';
 import { DialogPutWrapperComponent } from './../student-editor/dialog-put-wrapper/dialog-put-wrapper.component';
 import { BaseServiceService } from './../../service/base-service.service';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogEditWrapperComponent } from '../student-editor/dialog-edit-wrapper/dialog-edit-wrapper.component';
+import { DialogDeleteWrapperComponent } from '../student-editor/dialog-delete-wrapper/dialog-delete-wrapper.component';
 
 @Component({
   selector: 'app-table-students',
@@ -21,7 +22,15 @@ export class TableStudentsComponent implements OnInit {
     this.student = new Student;
   }
 
+  ngOnChanges(): void {
+    this.getStudents();
+  }
+
   ngOnInit(): void {
+    this.getStudents();
+  }
+
+  getStudents(): void {
     console.log("TableStudentComponent");
     this.baseService.getAllStudents().subscribe(data => this.students = data);
   }
@@ -44,19 +53,36 @@ export class TableStudentsComponent implements OnInit {
   }
 
   putStudent(student: Student): void {
-    const DialogPutStudent =
+    const dialogPutStudent =
     this.dialog.open(DialogPutWrapperComponent, {
       width: '400px',
       data: student,
     });
-    DialogPutStudent.afterClosed().subscribe((result: Student) => {
+    dialogPutStudent.afterClosed().subscribe((result: Student) => {
       if (result != null) {
         console.log("edit student on: " + student.id);
         result.id = student.id;
         debugger
-        this.baseService.putNewStudent(result).subscribe(k=>
+        this.baseService.putStudent(result).subscribe(k=>
             this.baseService.getAllStudents().subscribe(data =>
               this.students = data)); debugger
+      }
+    });
+  }
+
+  deleteStudent(student: Student): void {
+    const dialogDeletingStudent =
+    this.dialog.open(DialogDeleteWrapperComponent, {
+      width: '400px',
+      data: null,
+    });
+    dialogDeletingStudent.afterClosed().subscribe((result: Student)=> {
+      if (result != null) {
+        console.log("delete student: " + student.name);
+        //result.id = student.id;
+        this.baseService.delStudent(result).subscribe(k=>
+          this.baseService.getAllStudents().subscribe(data =>
+            this.students = data));
       }
     });
   }

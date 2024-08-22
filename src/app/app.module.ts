@@ -14,13 +14,15 @@ import { DialogEditWrapperComponent } from './components/student-editor/dialog-e
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './service/in-memory-data.service';
 import { DialogPutWrapperComponent } from './components/student-editor/dialog-put-wrapper/dialog-put-wrapper.component';
+import { DialogDeleteWrapperComponent } from './components/student-editor/dialog-delete-wrapper/dialog-delete-wrapper.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TableStudentsComponent,
     DialogEditWrapperComponent,
-    DialogPutWrapperComponent
+    DialogPutWrapperComponent,
+    DialogDeleteWrapperComponent
   ],
   imports: [
     BrowserModule,

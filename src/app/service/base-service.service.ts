@@ -24,7 +24,13 @@ export class BaseServiceService {
   //   return this.http.get<Student>(url).pipe();
   // }
 
-  putNewStudent(student: Student): Observable<Student> {
+  putStudent(student: Student): Observable<Student> {
     return this.http.put<Student>(this.studentsUrl, student).pipe();
+  }
+
+  delStudent(student: Student): Observable<Student> {
+    const url = `${this.studentsUrl}/${student.id}`;
+    debugger
+    return this.http.delete<Student>(url).pipe();
   }
 }

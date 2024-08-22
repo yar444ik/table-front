@@ -4,7 +4,7 @@
     <th>ID</th>
     <th>Name</th>
     <th>Surname</th>
-    <th>Edit</th>
+    <th>func</th>
   </thead>
   <tbody>
     <tr *ngFor="let student of students">
@@ -12,6 +12,7 @@
       <td>{{student.name}}</td>
       <td>{{student.surname}}</td>
       <button (click)="putStudent(student)">Edit</button>
+      <button (click)="deleteStudent(student)">x</button>
     </tr>
   </tbody>
 </table>
