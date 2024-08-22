@@ -1,5 +1,7 @@
+import { Student } from './../../models/students';
+import { DialogPutWrapperComponent } from './../student-editor/dialog-put-wrapper/dialog-put-wrapper.component';
 import { BaseServiceService } from './../../service/base-service.service';
-import { Student } from 'src/app/models/students';
+
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogEditWrapperComponent } from '../student-editor/dialog-edit-wrapper/dialog-edit-wrapper.component';
@@ -11,10 +13,12 @@ import { DialogEditWrapperComponent } from '../student-editor/dialog-edit-wrappe
 })
 export class TableStudentsComponent implements OnInit {
   students: Student[];
+  student: Student;
 
   constructor(private baseService: BaseServiceService,
     public dialog: MatDialog,) {
     this.students = [];
+    this.student = new Student;
   }
 
   ngOnInit(): void {
@@ -27,7 +31,7 @@ export class TableStudentsComponent implements OnInit {
     this.dialog.open(DialogEditWrapperComponent,
       {
         width: '400px',
-        data: null
+        data: null,
       });
     dialogAddingNewStudent.afterClosed().subscribe((result: Student) => {
       if (result != null) {
@@ -35,6 +39,24 @@ export class TableStudentsComponent implements OnInit {
         this.baseService.addNewStudent(result).subscribe(k=>
           this.baseService.getAllStudents().subscribe(data =>
             this.students = data));
+      }
+    });
+  }
+
+  putStudent(student: Student): void {
+    const DialogPutStudent =
+    this.dialog.open(DialogPutWrapperComponent, {
+      width: '400px',
+      data: student,
+    });
+    DialogPutStudent.afterClosed().subscribe((result: Student) => {
+      if (result != null) {
+        console.log("edit student on: " + student.id);
+        result.id = student.id;
+        debugger
+        this.baseService.putNewStudent(result).subscribe(k=>
+            this.baseService.getAllStudents().subscribe(data =>
+              this.students = data)); debugger
       }
     });
   }

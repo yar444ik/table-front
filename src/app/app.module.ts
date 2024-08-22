@@ -9,18 +9,18 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { StudentEditorComponent } from './components/student-editor/student-editor.component';
 import { TableStudentsComponent } from './components/table-students/table-students.component';
 import { DialogEditWrapperComponent } from './components/student-editor/dialog-edit-wrapper/dialog-edit-wrapper.component';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './service/in-memory-data.service';
+import { DialogPutWrapperComponent } from './components/student-editor/dialog-put-wrapper/dialog-put-wrapper.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    StudentEditorComponent,
     TableStudentsComponent,
-    DialogEditWrapperComponent
+    DialogEditWrapperComponent,
+    DialogPutWrapperComponent
   ],
   imports: [
     BrowserModule,

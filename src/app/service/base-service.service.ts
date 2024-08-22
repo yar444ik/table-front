@@ -1,5 +1,5 @@
+import { Student } from 'src/app/models/students';
 import { HttpClient } from '@angular/common/http';
-import { Student } from './../models/students';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -17,5 +17,14 @@ export class BaseServiceService {
   addNewStudent(student: Student): Observable<Student> {
     console.log('addNewStudent');
     return this.http.post<Student>(this.studentsUrl, student).pipe();
+  }
+
+  // getStudent(student: Student): Observable<Student> {
+  //   const url = `${this.studentsUrl}/${student.id}`;
+  //   return this.http.get<Student>(url).pipe();
+  // }
+
+  putNewStudent(student: Student): Observable<Student> {
+    return this.http.put<Student>(this.studentsUrl, student).pipe();
   }
 }

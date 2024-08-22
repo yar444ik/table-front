@@ -4,12 +4,14 @@
     <th>ID</th>
     <th>Name</th>
     <th>Surname</th>
+    <th>Edit</th>
   </thead>
   <tbody>
     <tr *ngFor="let student of students">
       <td>{{student.id}}</td>
       <td>{{student.name}}</td>
       <td>{{student.surname}}</td>
+      <button (click)="putStudent(student)">Edit</button>
     </tr>
   </tbody>
 </table>
