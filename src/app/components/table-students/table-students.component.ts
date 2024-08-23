@@ -46,8 +46,10 @@ export class TableStudentsComponent implements OnInit {
       if (result != null) {
         console.log("adding new student: " + result.name);
         this.baseService.addNewStudent(result).subscribe(k=>
-          this.baseService.getAllStudents().subscribe(data =>
-            this.students = data));
+          this.baseService.getAllStudents().subscribe(data => {
+            this.students = data;
+            // this.updateStudentIds();
+          }));
       }
     });
   }
@@ -79,11 +81,24 @@ export class TableStudentsComponent implements OnInit {
     dialogDeletingStudent.afterClosed().subscribe((result: Student)=> {
       if (result != null) {
         console.log("delete student: " + student.name);
-        //result.id = student.id;
+        result.id = student.id;
         this.baseService.delStudent(result).subscribe(k=>
-          this.baseService.getAllStudents().subscribe(data =>
-            this.students = data));
+          this.baseService.getAllStudents().subscribe(data => {
+            this.students = data;
+            // this.updateStudentIds();
+          }));
       }
     });
   }
+
+  // updateStudentIds(): void {
+  //   this.students = this.students.map((student, index) => {
+  //     student.id = index + 1;
+  //     return student;
+  //   });
+  //   this.students.forEach((student, index) => {
+  //     student.id = index + 1;
+  //   });
+  // }
+
 }
