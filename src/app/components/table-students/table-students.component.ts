@@ -22,10 +22,6 @@ export class TableStudentsComponent implements OnInit {
     this.student = new Student;
   }
 
-  ngOnChanges(): void {
-    this.getStudents();
-  }
-
   ngOnInit(): void {
     this.getStudents();
   }
@@ -33,6 +29,7 @@ export class TableStudentsComponent implements OnInit {
   getStudents(): void {
     console.log("TableStudentComponent");
     this.baseService.getAllStudents().subscribe(data => this.students = data);
+
   }
 
   addNewStudent(): void {
@@ -46,10 +43,10 @@ export class TableStudentsComponent implements OnInit {
       if (result != null) {
         console.log("adding new student: " + result.name);
         this.baseService.addNewStudent(result).subscribe(k=>
-          this.baseService.getAllStudents().subscribe(data => {
-            this.students = data;
+          // this.baseService.getAllStudents().subscribe(data => {
+          //   this.students = data;
+            this.getStudents());
             // this.updateStudentIds();
-          }));
       }
     });
   }
@@ -64,10 +61,10 @@ export class TableStudentsComponent implements OnInit {
       if (result != null) {
         console.log("edit student on: " + student.id);
         result.id = student.id;
-        debugger
         this.baseService.putStudent(result).subscribe(k=>
-            this.baseService.getAllStudents().subscribe(data =>
-              this.students = data)); debugger
+          // this.baseService.getAllStudents().subscribe(data =>
+          //   this.students = data));
+            this.getStudents());
       }
     });
   }
@@ -83,21 +80,22 @@ export class TableStudentsComponent implements OnInit {
         console.log("delete student: " + student.name);
         result.id = student.id;
         this.baseService.delStudent(result).subscribe(k=>
-          this.baseService.getAllStudents().subscribe(data => {
-            this.students = data;
-            // this.updateStudentIds();
-          }));
+          // this.baseService.getAllStudents().subscribe(data => {
+          //   this.students = data;
+          //   // this.updateStudentIds();
+          // }));
+          this.getStudents());
       }
     });
   }
 
-  // updateStudentIds(): void {
-  //   this.students = this.students.map((student, index) => {
+  // updateStudentsIds() {
+  //   this.dataSource.data.forEach((student, index) => {
   //     student.id = index + 1;
-  //     return student;
   //   });
-  //   this.students.forEach((student, index) => {
-  //     student.id = index + 1;
+
+  //   this.dataSource.data.forEach(student => {
+  //     this.baseService.updateStudent(student).subscribe();
   //   });
   // }
 

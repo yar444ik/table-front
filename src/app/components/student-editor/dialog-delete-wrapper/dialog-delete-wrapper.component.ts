@@ -12,7 +12,7 @@ export class DialogDeleteWrapperComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<DialogDeleteWrapperComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Student) {
-      this.editingStudent = new Student;
+      this.editingStudent = new Student();
     }
 
   ngOnInit(): void {
