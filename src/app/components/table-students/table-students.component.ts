@@ -1,7 +1,7 @@
 import { Student } from 'src/app/models/students';
-import { DialogPutWrapperComponent } from './../student-editor/dialog-put-wrapper/dialog-put-wrapper.component';
-import { BaseServiceService } from './../../service/base-service.service';
 import { DialogEditWrapperComponent } from '../student-editor/dialog-edit-wrapper/dialog-edit-wrapper.component';
+import { BaseServiceService } from './../../service/base-service.service';
+import { DialogAddWrapperComponent } from '../student-editor/dialog-add-wrapper/dialog-add-wrapper.component';
 import { DialogDeleteWrapperComponent } from '../student-editor/dialog-delete-wrapper/dialog-delete-wrapper.component';
 
 import { Component, OnInit, OnChanges, ViewChild, AfterViewInit } from '@angular/core';
@@ -57,7 +57,7 @@ export class TableStudentsComponent implements OnInit, AfterViewInit {
 
   addNewStudent(): void {
     const dialogAddingNewStudent =
-    this.dialog.open(DialogEditWrapperComponent,
+    this.dialog.open(DialogAddWrapperComponent,
       {
         width: '400px',
         data: null,
@@ -74,20 +74,20 @@ export class TableStudentsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  putStudent(student: Student): void {
-    const dialogPutStudent =
-    this.dialog.open(DialogPutWrapperComponent, {
+  editStudent(student: Student): void {
+    const dialogEditStudent =
+    this.dialog.open(DialogEditWrapperComponent, {
       width: '400px',
       data: student,
     });
-    dialogPutStudent.afterClosed().subscribe((result: Student) => {
+    dialogEditStudent.afterClosed().subscribe((result: Student) => {
       if (result != null) {
         console.log("edit student on: " + student.id);
         result.id = student.id;
         this.baseService.putStudent(result).subscribe(k=>
-          // this.baseService.getAllStudents().subscribe(data =>
-          //   this.students = data));
-            this.getStudents());
+          this.baseService.getAllStudents().subscribe(data =>
+            this.students = data));
+            //this.getStudents());
       }
     });
   }

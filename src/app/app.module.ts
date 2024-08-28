@@ -10,10 +10,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TableStudentsComponent } from './components/table-students/table-students.component';
-import { DialogEditWrapperComponent } from './components/student-editor/dialog-edit-wrapper/dialog-edit-wrapper.component';
+import { DialogAddWrapperComponent } from './components/student-editor/dialog-add-wrapper/dialog-add-wrapper.component';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './service/in-memory-data.service';
-import { DialogPutWrapperComponent } from './components/student-editor/dialog-put-wrapper/dialog-put-wrapper.component';
+import { DialogEditWrapperComponent } from './components/student-editor/dialog-edit-wrapper/dialog-edit-wrapper.component';
 import { DialogDeleteWrapperComponent } from './components/student-editor/dialog-delete-wrapper/dialog-delete-wrapper.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
@@ -24,9 +24,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
   declarations: [
     AppComponent,
     TableStudentsComponent,
+    DialogAddWrapperComponent,
     DialogEditWrapperComponent,
-    DialogPutWrapperComponent,
-    DialogDeleteWrapperComponent
+    DialogDeleteWrapperComponent,
   ],
   imports: [
     BrowserModule,

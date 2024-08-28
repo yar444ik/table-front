@@ -19,7 +19,7 @@
 <button (click)="addNewStudent()">Add new student</button> -->
 
 <h1>STUDENT TABLE</h1>
-<mat-form-field appearance="standard">
+<mat-form-field class="form" appearance="standard">
   <mat-label>Filter</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="Id, name or surname" #input>
 </mat-form-field>
@@ -44,8 +44,8 @@
     <ng-container matColumnDef="functions">
       <th mat-header-cell *matHeaderCellDef class="actions-column"></th>
       <td mat-cell *matCellDef="let student" class="actions-column">
-        <button mat-button color="error" (click)="deleteStudent(student)"></button>
-        <button mat-button color="primary" (click)="putStudent(student)">Edit</button>
+        <button mat-button color="error" (click)="deleteStudent(student)">X</button>
+        <button mat-button color="primary" (click)="editStudent(student)">Edit</button>
       </td>
     </ng-container>
 

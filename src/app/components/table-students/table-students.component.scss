@@ -1,5 +1,6 @@
 table {
   width: 100%;
+  table-layout: fixed; /* добавьте это правило */
 }
 
 .mat-column-id {
@@ -20,7 +21,7 @@ table {
 }
 
 .mat-column-functions {
-  width: 32px;
+  //width: 22px;
   text-align: justify;
 }
 
@@ -33,4 +34,10 @@ h1 {
   font: 1em sans-serif;
   font-size: 40px;
   font-weight: bold;
+}
+
+.form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
 }
