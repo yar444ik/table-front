@@ -1,0 +1,36 @@
+table {
+  width: 100%;
+}
+
+.mat-column-id {
+  width: 32px;
+  border-right: 1px solid currentColor;
+  padding-right: 24px;
+  text-align: center;
+}
+
+.mat-column-name {
+  padding-left: 16px;
+  font-size: 20px;
+}
+
+.mat-column-surname {
+  padding-left: 16px;
+  font-size: 20px;
+}
+
+.mat-column-functions {
+  width: 32px;
+  text-align: justify;
+}
+
+.mat-button {
+  font-weight: bold;
+}
+
+h1 {
+  text-align: center;
+  font: 1em sans-serif;
+  font-size: 40px;
+  font-weight: bold;
+}

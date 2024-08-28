@@ -1,35 +1,58 @@
 import { Student } from 'src/app/models/students';
 import { DialogPutWrapperComponent } from './../student-editor/dialog-put-wrapper/dialog-put-wrapper.component';
 import { BaseServiceService } from './../../service/base-service.service';
-
-import { Component, OnInit, OnChanges } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { DialogEditWrapperComponent } from '../student-editor/dialog-edit-wrapper/dialog-edit-wrapper.component';
 import { DialogDeleteWrapperComponent } from '../student-editor/dialog-delete-wrapper/dialog-delete-wrapper.component';
+
+import { Component, OnInit, OnChanges, ViewChild, AfterViewInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-table-students',
   templateUrl: './table-students.component.html',
   styleUrls: ['./table-students.component.scss']
 })
-export class TableStudentsComponent implements OnInit {
+
+export class TableStudentsComponent implements OnInit, AfterViewInit {
   students: Student[];
-  student: Student;
+
+  displayedColumns: string[] = ['id', 'name', 'surname','functions'];
+  dataSource: MatTableDataSource<Student> = new MatTableDataSource<Student>();
+
+  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private baseService: BaseServiceService,
     public dialog: MatDialog,) {
     this.students = [];
-    this.student = new Student;
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   ngOnInit(): void {
     this.getStudents();
   }
 
-  getStudents(): void {
-    console.log("TableStudentComponent");
-    this.baseService.getAllStudents().subscribe(data => this.students = data);
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
 
+  getStudents(): void {
+    this.baseService.getAllStudents().subscribe(data => {
+      this.dataSource.data = data;
+      this.dataSource._updateChangeSubscription();
+    });
   }
 
   addNewStudent(): void {

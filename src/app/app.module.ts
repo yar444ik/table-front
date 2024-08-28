@@ -15,6 +15,10 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './service/in-memory-data.service';
 import { DialogPutWrapperComponent } from './components/student-editor/dialog-put-wrapper/dialog-put-wrapper.component';
 import { DialogDeleteWrapperComponent } from './components/student-editor/dialog-delete-wrapper/dialog-delete-wrapper.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -36,6 +40,11 @@ import { DialogDeleteWrapperComponent } from './components/student-editor/dialog
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false}
     ),
+    MatButtonModule,
+    MatInputModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
