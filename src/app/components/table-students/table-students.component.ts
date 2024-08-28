@@ -44,6 +44,7 @@ export class TableStudentsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
@@ -75,19 +76,20 @@ export class TableStudentsComponent implements OnInit, AfterViewInit {
   }
 
   editStudent(student: Student): void {
+    const editStudent = { ...student };
     const dialogEditStudent =
     this.dialog.open(DialogEditWrapperComponent, {
       width: '400px',
-      data: student,
+      data: editStudent,
     });
     dialogEditStudent.afterClosed().subscribe((result: Student) => {
       if (result != null) {
         console.log("edit student on: " + student.id);
         result.id = student.id;
         this.baseService.putStudent(result).subscribe(k=>
-          this.baseService.getAllStudents().subscribe(data =>
-            this.students = data));
-            //this.getStudents());
+          // this.baseService.getAllStudents().subscribe(data =>
+          //   this.students = data));
+            this.getStudents());
       }
     });
   }

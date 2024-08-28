@@ -9,11 +9,9 @@ import { Student } from 'src/app/models/students';
   styleUrls: ['./dialog-edit-wrapper.component.scss']
 })
 export class DialogEditWrapperComponent implements OnInit {
-  editStudent: Student;
 
   constructor(public dialogRef: MatDialogRef<DialogEditWrapperComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Student) {
-      this.editStudent = new Student;
     }
 
   ngOnInit(): void {
