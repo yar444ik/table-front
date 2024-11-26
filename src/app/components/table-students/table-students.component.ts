@@ -19,7 +19,7 @@ import { MatSort } from '@angular/material/sort';
 export class TableStudentsComponent implements OnInit, AfterViewInit {
   students: Student[];
 
-  displayedColumns: string[] = ['id', 'name', 'surname','functions'];
+  displayedColumns: string[] = ['id', 'name', 'surname', 'group','functions'];
   dataSource: MatTableDataSource<Student> = new MatTableDataSource<Student>();
 
   @ViewChild(MatSort) sort!: MatSort;
@@ -113,15 +113,4 @@ export class TableStudentsComponent implements OnInit, AfterViewInit {
       }
     });
   }
-
-  // updateStudentsIds() {
-  //   this.dataSource.data.forEach((student, index) => {
-  //     student.id = index + 1;
-  //   });
-
-  //   this.dataSource.data.forEach(student => {
-  //     this.baseService.updateStudent(student).subscribe();
-  //   });
-  // }
-
 }

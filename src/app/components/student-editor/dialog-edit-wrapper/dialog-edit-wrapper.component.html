@@ -9,6 +9,10 @@
     <input matInput type="text" placeholder="Surname of student"
       [(ngModel)]="data.surname" required>
   </mat-form-field>
+  <mat-form-field class="full-width-input">
+    <input matInput type="text" placeholder="Group of student"
+      [(ngModel)]="data.group" required>
+  </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <button mat-raised-button (click)="onNoClick()">Cancel</button>

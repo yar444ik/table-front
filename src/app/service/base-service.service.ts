@@ -1,30 +1,33 @@
 import { Student } from 'src/app/models/students';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BaseServiceService {
-  private studentsUrl = 'api/students';
+  private studentsUrl = 'api/base/students';
 
   constructor(private http: HttpClient) {  }
 
   getAllStudents(): Observable<Student[]> {
-    return this.http.get<Student[]>(this.studentsUrl);
+    return this.http.get<Student[]>('api/base/students').pipe(catchError(error => {
+      console.error('Error fetching students:', error);
+      return throwError(() => new Error('Failed to fetch students'));
+    }));
   }
   addNewStudent(student: Student): Observable<Student> {
-    return this.http.post<Student>(this.studentsUrl, student).pipe();
+    return this.http.post<Student>('api/base/students', student);
   }
 
   putStudent(student: Student): Observable<Student> {
-    const url = `${this.studentsUrl}/${student.id}`;
-    return this.http.put<Student>(url, student).pipe();
+    const url = `${this.studentsUrl}/`;
+    return this.http.put<Student>(url, student);
   }
 
   delStudent(student: Student): Observable<Student> {
     const url = `${this.studentsUrl}/${student.id}`;
-    return this.http.delete<Student>(url).pipe();
+    return this.http.delete<Student>(url);
   }
 }
