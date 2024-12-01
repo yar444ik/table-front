@@ -1,5 +1,8 @@
-<p>Successful delete student {{editingStudent.name}} {{editingStudent.surname}}</p>
+<h1 mat-dialog-title>Delete student?</h1>
+<div mat-dialog-content style="display: inline; padding: 0px; margin: auto;">
+
+</div>
 <div mat-dialog-actions>
-  <button class="right-align" mat-raised-button color="primary"
-    [mat-dialog-close]="editingStudent">Ok</button>
+  <button mat-raised-button (click)="onNoClick()">Отмена</button>
+  <button class="right-align" mat-raised-button color="primary" (click)="confirmDelete()">Удалить</button>
 </div>

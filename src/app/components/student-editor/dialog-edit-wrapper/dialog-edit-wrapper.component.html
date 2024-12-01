@@ -3,19 +3,19 @@
 
   <mat-form-field class="full-width-input">
     <input matInput type="text" placeholder="Name of student"
-      [(ngModel)]="data.name" required>
+      [(ngModel)]="editingStudent.name" required>
   </mat-form-field>
   <mat-form-field class="full-width-input">
     <input matInput type="text" placeholder="Surname of student"
-      [(ngModel)]="data.surname" required>
+      [(ngModel)]="editingStudent.surname" required>
   </mat-form-field>
   <mat-form-field class="full-width-input">
     <input matInput type="text" placeholder="Group of student"
-      [(ngModel)]="data.group" required>
+      [(ngModel)]="editingStudent.group" required>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <button mat-raised-button (click)="onNoClick()">Cancel</button>
   <button class="right-align" mat-raised-button color="primary"
-    [mat-dialog-close]="data">Edit</button>
+  (click)="confirmEdit()">Edit</button>
 </div>

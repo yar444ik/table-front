@@ -46,3 +46,10 @@ h1 {
   max-width: 500px;
   width: 100%;
 }
+
+input::placeholder {
+  font-weight: bold;
+  font: sans-serif;
+  opacity: 0.5;
+  color: red;
+}

@@ -1,27 +1,7 @@
-<!-- <h1>Student table</h1>
-<table>
-  <thead>
-    <th>ID</th>
-    <th>Name</th>
-    <th>Surname</th>
-  </thead>
-  <tbody>
-    <tr *ngFor="let student of students">
-      <td>{{student.id}}</td>
-      <td>{{student.name}}</td>
-      <td>{{student.surname}}</td>
-      <button (click)="putStudent(student)">Edit</button>
-      <button (click)="deleteStudent(student)">x</button>
-    </tr>
-  </tbody>
-</table>
-<br>
-<button (click)="addNewStudent()">Add new student</button> -->
-
 <h1>STUDENT TABLE</h1>
 <mat-form-field class="form" appearance="standard">
   <mat-label>Filter</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Id, name, surname or group" #input>
+  <input matInput (keyup)="filterResults(filter.value, paginator.pageIndex, paginator.pageSize, sortField, sortDirection)" placeholder="Id, name, surname or group" #filter>
 </mat-form-field>
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 full-width-table">
@@ -58,7 +38,13 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
   </table>
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  <mat-paginator [length]="totalElements"
+    [pageSize]="pageSize"
+    [pageIndex]="pageIndex"
+    [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons
+    (page)="onPageChange($event)">
+  </mat-paginator>
 </div>
 <br>
 <button mat-raised-button color="primary" (click)="addNewStudent()">ADD STUDENT</button>

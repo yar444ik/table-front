@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Student } from 'src/app/models/students';
+import { BaseServiceService } from 'src/app/service/base-service.service';
 
 @Component({
   selector: 'app-dialog-delete-wrapper',
@@ -8,13 +9,18 @@ import { Student } from 'src/app/models/students';
   styleUrls: ['./dialog-delete-wrapper.component.scss']
 })
 export class DialogDeleteWrapperComponent implements OnInit {
-  editingStudent: Student;
-
-  constructor(public dialogRef: MatDialogRef<DialogDeleteWrapperComponent>,
+  constructor(public dialogRef: MatDialogRef<DialogDeleteWrapperComponent>,private baseServiceService: BaseServiceService,
     @Inject(MAT_DIALOG_DATA) public data: Student) {
-      this.editingStudent = new Student();
     }
 
   ngOnInit(): void {
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close(false);
+  }
+
+  confirmDelete(): void {
+    this.dialogRef.close(true);
   }
 }
