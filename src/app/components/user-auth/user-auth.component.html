@@ -1,0 +1,33 @@
+<div class="container">
+	<input type="checkbox" id="check">
+
+	<div class="login form">
+	  <header>Login</header>
+	  <form action="#">
+		<input type="text" name="username" placeholder="Enter your username" [(ngModel)]= "loginRequest.username" required>
+		<input type="password" name="password" placeholder="Enter your password" [(ngModel)]= "loginRequest.password" required>
+		<input type="button" class="button" (click)="onLogin()" value="Login">
+	  </form>
+	  <div class="signup">
+		<span class="signup">Don't have an account?
+		 <label for="check">Signup</label>
+		</span>
+	  </div>
+	</div>
+
+	<div class="registration form">
+	  <header>Signup</header>
+      <span class="welcome">Welcome to the web application for editing students in the database of Voronezh State Technical University. Please register before using it!</span>
+	  <form action="#">
+		<input type="text" name="regUserName" placeholder="Enter your username" [(ngModel)]= "registerRequest.username" required>
+		<input type="password" name="regPass" placeholder="Create a password" [(ngModel)]= "registerRequest.pwd" required>
+		<input type="button" class="button" (click)="onRegister()" value="Signup">
+	  </form>
+	  <div class="signup">
+		<span class="signup">Already have an account?
+		 <label for="check">Login</label>
+		</span>
+	  </div>
+
+	</div>
+  </div>
