@@ -1,7 +1,16 @@
-<h1>STUDENT TABLE</h1>
+<div class="button-row">
+  <div class="flex-container">
+      <h1>STUDENT TABLE</h1>
+    <div class="button-container">
+      <button mat-icon-button color="primary" (click)="quit()">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
 <mat-form-field class="form" appearance="standard">
   <mat-label>Filter</mat-label>
-  <input matInput (keyup)="filterResults(filter.value, paginator.pageIndex, paginator.pageSize, sortField, sortDirection)" placeholder="Id, name, surname or group" #filter>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Id, name, surname or group" #filter>
 </mat-form-field>
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 full-width-table">
@@ -29,8 +38,8 @@
     <ng-container matColumnDef="functions">
       <th mat-header-cell *matHeaderCellDef class="actions-column"></th>
       <td mat-cell *matCellDef="let student" class="actions-column">
-        <button mat-button color="error" (click)="deleteStudent(student)">X</button>
-        <button mat-button color="primary" (click)="editStudent(student)">Edit</button>
+        <button mat-button color="warn" (click)="deleteStudent(student)"><mat-icon>delete</mat-icon></button>
+        <button mat-button color="primary" (click)="editStudent(student)"><mat-icon>edit</mat-icon></button>
       </td>
     </ng-container>
 

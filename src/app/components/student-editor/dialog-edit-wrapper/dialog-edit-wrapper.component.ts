@@ -1,7 +1,7 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, Inject, OnInit } from '@angular/core';
 
-import { Student } from 'src/app/models/students';
+import { Student } from 'src/app/models/student';
 
 @Component({
   selector: 'app-dialog-edit-wrapper',

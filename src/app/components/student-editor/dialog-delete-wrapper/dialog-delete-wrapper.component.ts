@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Student } from 'src/app/models/students';
-import { BaseServiceService } from 'src/app/service/base-service.service';
+import { Student } from 'src/app/models/student';
+import { BaseServiceService } from 'src/app/services/base-service.service';
 
 @Component({
   selector: 'app-dialog-delete-wrapper',

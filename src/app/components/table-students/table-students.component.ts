@@ -1,15 +1,17 @@
-import { Student } from 'src/app/models/students';
+import { Student } from 'src/app/models/student';
 import { DialogEditWrapperComponent } from '../student-editor/dialog-edit-wrapper/dialog-edit-wrapper.component';
-import { BaseServiceService } from './../../service/base-service.service';
+import { BaseServiceService } from '../../services/base-service.service';
 import { DialogAddWrapperComponent } from '../student-editor/dialog-add-wrapper/dialog-add-wrapper.component';
 import { DialogDeleteWrapperComponent } from '../student-editor/dialog-delete-wrapper/dialog-delete-wrapper.component';
-import { FilterService } from 'src/app/service/filterService';
+import { FilterService } from 'src/app/services/filterService';
 
 import { Component, OnInit, OnChanges, ViewChild, AfterViewInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import {LocalStorageService} from "../../services/local-storage.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-table-students',
@@ -17,23 +19,27 @@ import { MatSort } from '@angular/material/sort';
   styleUrls: ['./table-students.component.scss']
 })
 
-export class TableStudentsComponent implements OnInit {
+export class TableStudentsComponent implements OnInit, AfterViewInit{
 
   displayedColumns: string[] = ['id', 'name', 'surname', 'group','functions'];
-  dataSource!: MatTableDataSource<Student>;
+  dataSource: MatTableDataSource<Student> = new MatTableDataSource<Student>();
   totalElements: number = 0;
   pageSize: number = 5;
   pageIndex: number = 0;
+
   sortField: string = 'id';
   sortDirection: string = 'asc';
-  currentFilter: string = '';
+
+  //currentFilter: string = '';
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private baseService: BaseServiceService,
-    public dialog: MatDialog,
-    private filterService: FilterService,) {}
+              public dialog: MatDialog,
+              private filterService: FilterService,
+              private storage: LocalStorageService,
+              private router: Router) {}
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -46,12 +52,12 @@ export class TableStudentsComponent implements OnInit {
 
   ngOnInit(): void {
     const savedFilter = this.filterService.getFilterValue();
-      if (savedFilter) {
-        this.currentFilter = savedFilter;
-        this.filterResults(savedFilter, this.pageIndex, this.pageSize, this.sortField, this.sortDirection);
-      } else {
+      // if (savedFilter) {
+      //   this.currentFilter = savedFilter;
+      //   this.filterResults(savedFilter, this.pageIndex, this.pageSize, this.sortField, this.sortDirection);
+      // } else {
         this.getStudents(this.pageIndex, this.pageSize, this.sortField, this.sortDirection);
-      }
+      //}
   }
 
   ngAfterViewInit(): void {
@@ -60,35 +66,34 @@ export class TableStudentsComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  filterResults(filter: string, pageIndex: number, pageSize: number, sortField: string, sortDirection: string) {
-    this.currentFilter = filter;
-    this.filterService.setFilterValue(filter);
-    this.baseService.searchByFilter(filter, pageIndex, pageSize, sortField, sortDirection).subscribe(data => {
-      this.dataSource = new MatTableDataSource(data.content);
-      this.totalElements = data.totalElements;
-      this.pageSize = data.size;
-      this.pageIndex = data.number;
-      this.paginator.length = this.totalElements;
-      this.dataSource.sort = this.sort;
-    });
-  }
+  // filterResults(filter: string, pageIndex: number, pageSize: number, sortField: string, sortDirection: string) {
+  //   this.currentFilter = filter;
+  //   this.filterService.setFilterValue(filter);
+  //   this.baseService.searchByFilter(filter, pageIndex, pageSize, sortField, sortDirection).subscribe(data => {
+  //     this.dataSource = new MatTableDataSource(data.content);
+  //     this.totalElements = data.totalElements;
+  //     this.pageSize = data.size;
+  //     this.pageIndex = data.number;
+  //     this.paginator.length = this.totalElements;
+  //     this.dataSource.sort = this.sort;
+  //   });
+  // }
 
   onPageChange(event: any) {
     const savedFilter = this.filterService.getFilterValue();
     const pageIndex = event.pageIndex;
     const pageSize = event.pageSize;
 
-    if (savedFilter) {
-      this.filterResults(savedFilter, pageIndex, pageSize, this.sortField, this.sortDirection);
-    } else {
+    // if (savedFilter) {
+    //   this.filterResults(savedFilter, pageIndex, pageSize, this.sortField, this.sortDirection);
+    // } else {
       this.getStudents(pageIndex, pageSize, this.sortField, this.sortDirection);
-    }
   }
 
   getStudents(pageIndex: number, pageSize: number, sortField: string, sortDirection: string) {
-    if (this.currentFilter) {
-      this.filterResults(this.currentFilter, pageIndex, pageSize, sortField, sortDirection);
-    } else {
+    // if (this.currentFilter) {
+    //   this.filterResults(this.currentFilter, pageIndex, pageSize, sortField, sortDirection);
+    // } else {
     this.baseService.getAllStudents(pageIndex, pageSize, sortField, sortDirection).subscribe(data => {
       this.dataSource = new MatTableDataSource(data.content);
       this.totalElements = data.totalElements;
@@ -97,7 +102,7 @@ export class TableStudentsComponent implements OnInit {
       this.paginator.length = this.totalElements;
       this.dataSource.sort = this.sort; // Устанавливаем сортировку на клиенте
     });
-  }
+  //}
   }
 
   addNewStudent(): void {
@@ -142,5 +147,10 @@ export class TableStudentsComponent implements OnInit {
         this.baseService.delStudent(student.id).subscribe(() => this.getStudents(this.pageIndex, this.pageSize, this.sortField, this.sortDirection));
       }
     });
+  }
+
+  quit(){
+    this.storage.deleteItem("accessToken");
+    this.router.navigateByUrl('/login');
   }
 }
